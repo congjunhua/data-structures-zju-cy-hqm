@@ -1,8 +1,3 @@
-/*
-	讨论1.3 再试一个多项式
-	https://www.icourse163.org/learn/ZJU-93001?tid=1470659487#/learn/content?type=detail&id=1254705090&cid=1286093695
-*/
-
 package discussions
 
 import (
@@ -12,6 +7,11 @@ import (
 	"runtime"
 	"time"
 )
+
+/*
+	讨论1.3 再试一个多项式
+	https://www.icourse163.org/learn/ZJU-93001?tid=1470659487#/learn/content?type=detail&id=1254705090&cid=1286093695
+*/
 
 // Polynomial 分别使用普通算法和秦九韶算法计算多项式，并对比时间复杂度。
 func Polynomial(n int, x float64) {
