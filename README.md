@@ -163,7 +163,7 @@ type list struct {
 
 对于表中任意一项 $a_i$ ，满足 $0≤i≤length-1≤capacity-1$ 。
 
-详见 `/linear_structure/sequential.go` 。
+详见 `/linear_structure/linear_list/sequential.go` 。
 
 ### 2.1.4 链式存储
 
@@ -186,7 +186,7 @@ type node struct {
 
 只需要知道表头，即可访问任一位置上的元素。
 
-详见 `/linear_structure/chained.go` 。
+详见 `/linear_structure/linear_list/chained.go` 。
 
 ### 2.1.5 广义表
 
@@ -238,9 +238,11 @@ $LS=(a_1,\ a_2,\ ...\ a_{n-1},\ a_n)$
 
 这种情况下，可以使用多重链表中的**十字链表**来实现。
 
-详见 `/linear_structure/cross_linked_list.go`。
+详见 `/linear_structure/linear_list/cross_linked_list.go`。
 
 ## 2.2 堆栈
+
+### 2.2.1 概念
 
 问题：计算机如何对表达式 $5+6/2-3*4$ 进行求值？
 
@@ -250,19 +252,19 @@ $LS=(a_1,\ a_2,\ ...\ a_{n-1},\ a_n)$
 
 如果将运算符放在两数之前，则上述表达式可以写成 $-+a*bc/de$ ，此为前缀表达式。
 
-对于上述问题：
+所以，对于上述问题：
 
-1. 计算机首先将其转化为后缀表达式 $562/+34*-$
+1. 计算机首先将中缀表达式转化为后缀表达式 $562/+34*-$
 
 2. 然后从左往右扫描该后缀表达式
 
 3. 遇到数字暂存
 
-4. 遇到运算符对暂存的数字的后两个数字立即执行运算
+4. 遇到运算符对暂存的数字的后两个数字执行运算
 
 5. 直到表达式遍历完成
 
-可以发现，需要一种满足「**后入先出**」的数据结构来存储待运算的数字，这种数据结构，即为**堆栈**。
+可以发现，需要一种满足「**后入先出**」的数据结构来存储待运算的数字，这种数据结构，即为**堆栈**（stack）。
 
 其中：
 
@@ -284,6 +286,16 @@ $LS=(a_1,\ a_2,\ ...\ a_{n-1},\ a_n)$
 
 - 判断是否已满
 
+- 查看栈顶元素
+
 - 元素入栈
 
 - 元素出栈
+
+### 2.2.2 顺序存储
+
+详见 `/linear_structure/stack/array.go` 和 `/linear_structure/stack/slice.go` 。
+
+### 2.2.3 链式存储
+
+详见 `/linear_structure/stack/linked_list.go` 。
