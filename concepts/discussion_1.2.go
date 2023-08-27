@@ -1,4 +1,4 @@
-package discussions
+package concepts
 
 /*
 	讨论1.2 晒一下PrintN在你的机器上运行的结果？

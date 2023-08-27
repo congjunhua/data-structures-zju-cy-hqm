@@ -1,7 +1,7 @@
-package notes
+package concepts
 
 /*
-	连续子列和（最大子数组和）问题。
+	最大连续子列和（最大子数组和）问题。
 	https://leetcode.cn/problems/maximum-subarray/
 */
 
@@ -42,7 +42,6 @@ func divideAndConquer(a []int) int {
 	return maxSum(a, 0, len(a)-1)
 }
 
-// 使用分治法计算给定子数组的最大子列和
 func maxSum(a []int, l, r int) int {
 	// 若子数组为单个元素，则直接返回该元素
 	if l == r {

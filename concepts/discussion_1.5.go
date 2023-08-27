@@ -1,4 +1,4 @@
-package discussions
+package concepts
 
 /*
 	讨论1.5 分析“二分法”

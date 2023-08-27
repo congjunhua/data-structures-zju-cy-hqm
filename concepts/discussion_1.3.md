@@ -16,11 +16,11 @@
 
 ```go
 func qinJiuShao(cs []float64, x float64) float64 {
-	p := cs[len(cs)-1]
-	for i := len(cs) - 2; i >= 0; i-- {
-		p = cs[i] + x*p
-	}
-	return p
+    p := cs[len(cs)-1]
+    for i := len(cs) - 2; i >= 0; i-- {
+        p = cs[i] + x*p
+    }
+    return p
 }
 ```
 

@@ -1,4 +1,4 @@
-package discussions
+package concepts
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ func Polynomial(n int, x float64) {
 	for i := 1; i < len(cs); i++ {
 		cs[i] = 1 / float64(i)
 	}
-	for _, f := range []func([]float64, float64) float64{normal, qinJiuShao} {
+	for _, f := range []func([]float64, float64) float64{common, qinJiuShao} {
 		t := time.Now()
 		fmt.Println(f(cs, x))
 		fmt.Printf(
@@ -31,7 +31,7 @@ func Polynomial(n int, x float64) {
 	}
 }
 
-func normal(cs []float64, x float64) float64 {
+func common(cs []float64, x float64) float64 {
 	p := float64(0)
 	for i := 0; i < len(cs); i++ {
 		p += cs[i] * math.Pow(x, float64(i))
