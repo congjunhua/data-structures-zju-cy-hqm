@@ -198,7 +198,7 @@ type node struct {
 
 2. $p(x)=ax^{12}+bx^8+cx^2$
 
-其中，$a,\ b,\ c$ 不再是常数，而是 $y$ 的一元多项式。
+其中， $a,\ b,\ c$ 不再是常数，而是 $y$ 的一元多项式。
 
 ```go
 type y struct {
@@ -286,7 +286,7 @@ $LS=(a_1,\ a_2,\ ...\ a_{n-1},\ a_n)$
 
 - 判断是否已满
 
-- 查看栈顶元素
+- 查询栈顶元素
 
 - 元素入栈
 
@@ -294,8 +294,53 @@ $LS=(a_1,\ a_2,\ ...\ a_{n-1},\ a_n)$
 
 ### 2.2.2 顺序存储
 
-详见 `/linear_structure/stack/array.go` 和 `/linear_structure/stack/slice.go` 。
+使用数组实现堆栈，详见 `/linear_structure/stack/array.go` 和 `/linear_structure/stack/slice.go` 。
 
 ### 2.2.3 链式存储
 
-详见 `/linear_structure/stack/linked_list.go` 。
+使用链表实现堆栈，详见 `/linear_structure/stack/linked_list.go` 。
+
+## 2.3 队列
+
+### 2.3.1 概念
+
+队列是一特殊的线性表，具有以下特征：
+
+- 只能在**队尾**（rear）插入
+
+- 只能在**队头**（front）删除
+
+- 插入数据称为**入队**
+
+- 删除数据称为**出队**
+
+- 先进先出 **FIFO**（First In First Out）
+
+**数据集**：零个或多个元素的有限线性表。
+
+**方法集**：
+
+- 初始化一个空对列
+- 判断是否为空
+- 判断是否已满
+- 查询队头元素
+- 元素入队
+- 元素出队
+
+### 2.3.2 顺序存储
+
+使用数组实现循环对列，详见 `/linear_structure/queue/array.go` 。
+
+### 2.3.3 链式存储
+
+使用链表实现对列，详见 `/linear_structure/queue/linked_list.go` 。
+
+### 2.3.4 计算多项式
+
+$p1=3x^5+4x^4-x^3+2x-1$
+
+$p2=2x^4+x^3-7x^2+x$
+
+求相加后的多项式 $p3$ 和相乘后的多项式 $p4$ 。
+
+详见 `/linear_structure/queue/polynomial.go` 。

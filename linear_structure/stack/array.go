@@ -4,7 +4,7 @@ import "errors"
 
 // 数组实现堆栈
 
-const arrayStackSize = 10
+const capacity = 10
 
 var (
 	FullError  = errors.New("栈满")
@@ -12,7 +12,7 @@ var (
 )
 
 type ArrayStack struct {
-	Values [arrayStackSize]any
+	Values [capacity]any
 	Top    int
 }
 
