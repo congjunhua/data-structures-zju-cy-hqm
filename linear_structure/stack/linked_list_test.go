@@ -5,7 +5,7 @@ import (
 )
 
 func TestLinkedListStack_PushPop(t *testing.T) {
-	stack := NewLinkedListStack()
+	stack := &LinkedListStack{}
 
 	stack.Push(1)
 	stack.Push(2)
@@ -29,7 +29,7 @@ func TestLinkedListStack_PushPop(t *testing.T) {
 }
 
 func TestLinkedListStack_Peek(t *testing.T) {
-	stack := NewLinkedListStack()
+	stack := &LinkedListStack{}
 
 	stack.Push(5)
 
@@ -47,7 +47,7 @@ func TestLinkedListStack_Peek(t *testing.T) {
 }
 
 func TestLinkedListStack_Empty(t *testing.T) {
-	stack := NewLinkedListStack()
+	stack := &LinkedListStack{}
 
 	if !stack.Empty() {
 		t.Error("Expected stack to be empty, but it's not")
@@ -57,5 +57,13 @@ func TestLinkedListStack_Empty(t *testing.T) {
 
 	if stack.Empty() {
 		t.Error("Expected stack not to be empty, but it is")
+	}
+
+	if _, e := stack.Pop(); e != nil {
+		t.Error(e)
+	}
+
+	if !stack.Empty() {
+		t.Error("Expected stack to be empty, but it's not")
 	}
 }

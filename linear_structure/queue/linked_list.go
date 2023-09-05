@@ -1,7 +1,6 @@
 package queue
 
-// 链表实现队列
-
+// LinkedListQueue 链表实现队列
 type LinkedListQueue struct {
 	front, rear *node
 }

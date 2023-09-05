@@ -2,8 +2,6 @@ package stack
 
 import "errors"
 
-// 数组实现堆栈
-
 const capacity = 10
 
 var (
@@ -11,6 +9,7 @@ var (
 	EmptyError = errors.New("栈空")
 )
 
+// ArrayStack 数组实现堆栈
 type ArrayStack struct {
 	Values [capacity]any
 	Top    int

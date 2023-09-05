@@ -10,7 +10,7 @@ func MaxSubArray(nums []int) int {
 }
 
 // 【算法一】暴力计算所有可能的连续部分
-func normal(nums []int) int {
+func calc(nums []int) int {
 	l, s, m := len(nums), 0, 0
 	for i := 0; i < l; i++ {
 		for j := i + 1; j < l+1; j++ {

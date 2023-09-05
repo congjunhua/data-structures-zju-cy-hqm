@@ -5,15 +5,14 @@ import (
 	"fmt"
 )
 
-// 链式存储（链表）实现线性表
-
-type Node struct {
-	Value any
-	Next  *Node
+// LinkedList 链式存储（链表）实现线性表
+type LinkedList struct {
+	head *node
 }
 
-type LinkedList struct {
-	Head *Node
+type node struct {
+	value any
+	next  *node
 }
 
 var (
@@ -25,19 +24,19 @@ var (
 func NewLinkedList(values ...any) *LinkedList {
 	ll := LinkedList{}
 	if values != nil {
-		ns := make([]*Node, len(values))
+		ns := make([]*node, len(values))
 		for i, d := range values {
-			ns[i] = &Node{
-				Value: d,
+			ns[i] = &node{
+				value: d,
 			}
 		}
 		for i := range ns {
 			if i == len(ns)-1 {
 				break
 			}
-			ns[i].Next = ns[i+1]
+			ns[i].next = ns[i+1]
 		}
-		ll.Head = ns[0]
+		ll.head = ns[0]
 	}
 	return &ll
 }
@@ -47,23 +46,23 @@ func (ll *LinkedList) InsertAfter(i int, v any) error {
 	if i < 0 || i > ll.Length()-1 {
 		return InvalidIndex
 	}
-	t := ll.Head
+	t := ll.head
 	for p := 0; p < i; p++ {
-		t = t.Next
+		t = t.next
 	}
-	t.Next = &Node{
-		Value: v,
-		Next:  t.Next,
+	t.next = &node{
+		value: v,
+		next:  t.next,
 	}
 	return nil
 }
 
 // Length 返回长度
 func (ll *LinkedList) Length() int {
-	l, c := 0, ll.Head
+	l, c := 0, ll.head
 	for c != nil {
 		l++
-		c = c.Next
+		c = c.next
 	}
 	return l
 }
@@ -73,25 +72,25 @@ func (ll *LinkedList) ValueAt(i int) (any, error) {
 	if i < 0 || i > ll.Length()-1 {
 		return nil, InvalidIndex
 	}
-	c := ll.Head
+	c := ll.head
 	for i > 0 {
-		c = c.Next
+		c = c.next
 		i--
 	}
-	return c.Value, nil
+	return c.value, nil
 }
 
 // IndexOf 查询给定元素第一次出现的位置，从未出现返回 -1 。
 func (ll *LinkedList) IndexOf(v any) int {
-	c, i := ll.Head, 0
+	c, i := ll.head, 0
 	for {
-		if c.Value == v {
+		if c.value == v {
 			return i
 		}
-		if c.Next == nil {
+		if c.next == nil {
 			break
 		}
-		c = c.Next
+		c = c.next
 		i++
 	}
 	return -1
@@ -104,27 +103,27 @@ func (ll *LinkedList) Delete(i int) error {
 	}
 	// 单独处理头节点
 	if i == 0 {
-		ll.Head = ll.Head.Next
+		ll.head = ll.head.next
 		return nil
 	}
 	// 定位非头节点的父节点
-	p := ll.Head
+	p := ll.head
 	for i-1 > 0 {
-		p = p.Next
+		p = p.next
 		i--
 	}
-	p.Next = p.Next.Next
+	p.next = p.next.next
 	return nil
 }
 
 // Print 打印
 func (ll *LinkedList) Print() {
-	s := make([]Node, 0)
-	c := ll.Head
+	s := make([]node, 0)
+	c := ll.head
 	if c != nil {
 		s = append(s, *c)
-		for c.Next != nil {
-			c = c.Next
+		for c.next != nil {
+			c = c.next
 			s = append(s, *c)
 		}
 	}

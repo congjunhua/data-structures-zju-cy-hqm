@@ -1,7 +1,6 @@
 package stack
 
-// 切片实现堆栈
-
+// SliceStack 切片实现堆栈
 type SliceStack struct {
 	Values []any
 }
@@ -14,7 +13,7 @@ func (s *SliceStack) Empty() bool {
 	return len(s.Values) == 0
 }
 
-// 因为切片是动态数组，可以不关心栈满，故不实现判满。
+// 因为切片是动态数组，不关心栈满。
 // func (s *SliceStack) Full() bool {}
 
 func (s *SliceStack) Peek() (any, error) {

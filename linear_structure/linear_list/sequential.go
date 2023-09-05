@@ -2,18 +2,17 @@ package linear_list
 
 import "fmt"
 
-// 顺序存储（数组）实现线性表
-
 const capacity = 10
 
-type List struct {
-	Value  [capacity]any
-	Length int
+// SequentialList 顺序存储（数组）实现线性表
+type SequentialList struct {
+	value  [capacity]any
+	length int
 }
 
 // InsertBefore 在给定位置前插入元素
-func (l *List) InsertBefore(i int, v any) {
-	switch l.Length {
+func (l *SequentialList) InsertBefore(i int, v any) {
+	switch l.length {
 	case capacity:
 		panic("表已满")
 	case 0:
@@ -24,25 +23,25 @@ func (l *List) InsertBefore(i int, v any) {
 		if l.indexOutOfRange(i) {
 			panic("索引越界")
 		}
-		for p := l.Length - 1; p >= i; p-- {
-			l.Value[p+1] = l.Value[p]
+		for p := l.length - 1; p >= i; p-- {
+			l.value[p+1] = l.value[p]
 		}
 	}
-	l.Value[i] = v
-	l.Length++
+	l.value[i] = v
+	l.length++
 }
 
 // ValueAt 查询给定位置的元素
-func (l *List) ValueAt(i int) any {
+func (l *SequentialList) ValueAt(i int) any {
 	if l.indexOutOfRange(i) {
 		panic("索引越界")
 	}
-	return l.Value[i]
+	return l.value[i]
 }
 
 // IndexOf 查询给定元素第一次出现的位置，从未出现返回 -1 。
-func (l *List) IndexOf(v any) int {
-	for i, d := range l.Value {
+func (l *SequentialList) IndexOf(v any) int {
+	for i, d := range l.value {
 		if d == v {
 			return i
 		}
@@ -51,26 +50,26 @@ func (l *List) IndexOf(v any) int {
 }
 
 // DeleteAt 删除指定位置的元素
-func (l *List) DeleteAt(i int) {
+func (l *SequentialList) DeleteAt(i int) {
 	if l.indexOutOfRange(i) {
 		panic("索引越界")
 	}
-	for p := i; p <= l.Length-1; p++ {
-		if p < l.Length-1 {
-			l.Value[p] = l.Value[p+1]
+	for p := i; p <= l.length-1; p++ {
+		if p < l.length-1 {
+			l.value[p] = l.value[p+1]
 			continue
 		}
-		l.Value[p] = nil
+		l.value[p] = nil
 	}
-	l.Length--
+	l.length--
 }
 
 // 判断给定位置是否超出当前线性表的索引范围
-func (l *List) indexOutOfRange(i int) bool {
-	return l.Length == 0 || (i < 0 || i > l.Length-1)
+func (l *SequentialList) indexOutOfRange(i int) bool {
+	return l.length == 0 || (i < 0 || i > l.length-1)
 }
 
 // 自描述
-func (l *List) print() {
-	fmt.Printf("length: %v\ndata: %v\n\n", l.Length, l.Value)
+func (l *SequentialList) print() {
+	fmt.Printf("length: %v\ndata: %v\n\n", l.length, l.value)
 }

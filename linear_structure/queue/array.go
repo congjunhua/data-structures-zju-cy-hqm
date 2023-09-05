@@ -4,8 +4,6 @@ import (
 	"errors"
 )
 
-// 使用数组实现循环队列
-
 const capacity = 4
 
 var (
@@ -13,6 +11,7 @@ var (
 	FullQueue  = errors.New("对列已满")
 )
 
+// ArrayQueue 使用数组实现循环队列
 type ArrayQueue struct {
 	Values      [capacity]any
 	Empty       bool

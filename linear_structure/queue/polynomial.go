@@ -2,13 +2,13 @@ package queue
 
 import "sort"
 
+type Polynomial indeterminate
+
 type indeterminate struct {
 	coefficient int
 	power       uint
 	next        *indeterminate
 }
-
-type Polynomial indeterminate
 
 func NewPolynomial(vs []indeterminate) *Polynomial {
 	for i := 0; i < len(vs)-1; i++ {

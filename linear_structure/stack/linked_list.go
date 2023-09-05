@@ -1,40 +1,35 @@
 package stack
 
-// 链表实现堆栈
-
-type Node struct {
-	Value any
-	Next  *Node
-}
-
+// LinkedListStack 链表实现堆栈
 type LinkedListStack struct {
-	Top *Node
+	top *node
 }
 
-func NewLinkedListStack() *LinkedListStack {
-	return &LinkedListStack{}
+type node struct {
+	value any
+	next  *node
 }
 
 func (s *LinkedListStack) Empty() bool {
-	return s.Top == nil
+	return s.top == nil
 }
 
 func (s *LinkedListStack) Peek() (any, error) {
 	if s.Empty() {
 		return nil, EmptyError
 	}
-	return s.Top.Value, nil
+	return s.top.value, nil
 }
 
 func (s *LinkedListStack) Push(v any) {
-	s.Top = &Node{Value: v, Next: s.Top}
+	s.top = &node{value: v, next: s.top}
 }
 
 func (s *LinkedListStack) Pop() (any, error) {
 	if s.Empty() {
 		return nil, EmptyError
 	}
-	v := s.Top.Value
-	s.Top = s.Top.Next
+	v := s.top.value
+	s.top = s.top.next
 	return v, nil
 }

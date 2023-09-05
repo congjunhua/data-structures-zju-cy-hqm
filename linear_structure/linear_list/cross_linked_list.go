@@ -4,28 +4,23 @@ import (
 	"fmt"
 )
 
-// 使用十字链表描述二维稀松数组。
-
-// CrossLinkedList 链表
+// CrossLinkedList 十字链表
 type CrossLinkedList struct {
-	RowHeads    []*RowHead
-	ColumnHeads []*ColumnHead
+	RowHeads    []*rowHead
+	ColumnHeads []*columnHead
 	Length      uint
 }
 
-// RowHead 行头
-type RowHead struct {
-	Number uint
-	Right  *Term
+type rowHead struct {
+	number uint
+	right  *Term
 }
 
-// ColumnHead 列头
-type ColumnHead struct {
-	Number uint
-	Down   *Term
+type columnHead struct {
+	number uint
+	down   *Term
 }
 
-// Term 节点
 type Term struct {
 	Row, Column uint
 	Value       any
@@ -34,13 +29,13 @@ type Term struct {
 
 // NewCrossLinkedList 初始化
 func NewCrossLinkedList(r, c uint) *CrossLinkedList {
-	rhs := make([]*RowHead, r)
+	rhs := make([]*rowHead, r)
 	for i := uint(0); i < r; i++ {
-		rhs[i] = &RowHead{Number: i + 1}
+		rhs[i] = &rowHead{number: i + 1}
 	}
-	chs := make([]*ColumnHead, c)
+	chs := make([]*columnHead, c)
 	for i := uint(0); i < c; i++ {
-		chs[i] = &ColumnHead{Number: i + 1}
+		chs[i] = &columnHead{number: i + 1}
 	}
 	return &CrossLinkedList{
 		RowHeads:    rhs,
@@ -64,20 +59,20 @@ func (l *CrossLinkedList) Set(r, c uint, v any) error {
 	rh := l.RowHeads[r-1]
 	if c == 1 {
 		// 若为首列，则左侧链接行头，右侧（若有）链接子元素
-		if rh.Right != nil && rh.Right.Column > c {
-			t.Right = rh.Right
+		if rh.right != nil && rh.right.Column > c {
+			t.Right = rh.right
 		}
-		rh.Right = t
+		rh.right = t
 	} else {
 		// 非首列，判断目标位置前是否存在元素
 		pre := func() *Term {
-			if rh.Right == nil {
+			if rh.right == nil {
 				return nil
 			}
-			if rh.Right.Column >= c {
+			if rh.right.Column >= c {
 				return nil
 			}
-			p := rh.Right
+			p := rh.right
 			for p.Right != nil && p.Right.Column < c {
 				p = p.Right
 			}
@@ -85,7 +80,7 @@ func (l *CrossLinkedList) Set(r, c uint, v any) error {
 		}()
 		if pre == nil {
 			// 左侧不存在，则左侧链接行头
-			rh.Right = t
+			rh.right = t
 		} else {
 			// 左侧存在，则左侧链接至该元素，该元素若存在列值大于目标列列值的子元素，则右侧链接该子元素
 			if pre.Right != nil && pre.Right.Column > c {
@@ -99,20 +94,20 @@ func (l *CrossLinkedList) Set(r, c uint, v any) error {
 	ch := l.ColumnHeads[c-1]
 	if r == 1 {
 		// 若为首行，则上侧链接列头，右侧（若有）链接子元素
-		if ch.Down != nil && ch.Down.Row > r {
-			t.Down = ch.Down
+		if ch.down != nil && ch.down.Row > r {
+			t.Down = ch.down
 		}
-		ch.Down = t
+		ch.down = t
 	} else {
 		// 非首行，判断目标位置前是否存在元素
 		pre := func() *Term {
-			if ch.Down == nil {
+			if ch.down == nil {
 				return nil
 			}
-			if ch.Down.Row > r {
+			if ch.down.Row > r {
 				return nil
 			}
-			p := ch.Down
+			p := ch.down
 			for p.Down != nil && p.Down.Row < r {
 				p = p.Down
 			}
@@ -120,7 +115,7 @@ func (l *CrossLinkedList) Set(r, c uint, v any) error {
 		}()
 		if pre == nil {
 			// 上侧不存在，则上侧链接至列头
-			ch.Down = t
+			ch.down = t
 		} else {
 			// 上侧存在，则左侧链接至该元素，该元素若存在行值大于目标位置行值的子元素，则下侧链接该子元素
 			if pre.Down != nil && pre.Down.Row > r {
@@ -140,10 +135,10 @@ func (l *CrossLinkedList) Get(r, c uint) (*Term, error) {
 	}
 	var t *Term
 	rh := l.RowHeads[r-1]
-	if rh.Right == nil {
+	if rh.right == nil {
 		return nil, NotExist
 	}
-	t = rh.Right
+	t = rh.right
 	for t.Right != nil && t.Column < c {
 		t = t.Right
 	}
@@ -166,7 +161,7 @@ func (l *CrossLinkedList) Delete(r, c uint) error {
 
 	// 行
 	rh := l.RowHeads[r-1]
-	left := rh.Right
+	left := rh.right
 	for left.Right != nil && left.Right.Column < c {
 		left = left.Right
 	}
@@ -175,7 +170,7 @@ func (l *CrossLinkedList) Delete(r, c uint) error {
 	}
 	if left == nil {
 		// 行链不存在父节点，则调整行头的右侧链接
-		rh.Right = t.Right
+		rh.right = t.Right
 	} else {
 		// 行链存在父节点，则调整父节点的右侧链接
 		left.Right = t.Right
@@ -183,7 +178,7 @@ func (l *CrossLinkedList) Delete(r, c uint) error {
 
 	// 列
 	ch := l.ColumnHeads[c-1]
-	up := ch.Down
+	up := ch.down
 	for up.Down != nil && up.Down.Row < r {
 		up = up.Down
 	}
@@ -192,7 +187,7 @@ func (l *CrossLinkedList) Delete(r, c uint) error {
 	}
 	if up == nil {
 		// 列链不存在父节点，则调整列头的下侧链接
-		ch.Down = t.Down
+		ch.down = t.Down
 	} else {
 		// 列链存在父节点，则调整父节点的下侧链接
 		up.Down = t.Down
@@ -209,7 +204,7 @@ func (l *CrossLinkedList) Print() {
 		m[i] = make([]any, len(l.ColumnHeads))
 	}
 	for i, rh := range l.RowHeads {
-		t := rh.Right
+		t := rh.right
 		for t != nil {
 			m[i][t.Column-1] = t
 			t = t.Right
